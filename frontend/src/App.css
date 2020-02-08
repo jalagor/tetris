@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Rammetto+One&display=swap');
+
+*{
+    background-color: rgb(247, 247, 247);
+}
+.navbar{
+    display: flex;
+    justify-content: center;
+}
+
+.title{
+    font-family: 'Rammetto One', cursive;
+    font-size: 3rem;
+}
