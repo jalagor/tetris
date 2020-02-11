@@ -3,13 +3,17 @@ import React from 'react'
 export const Board = ({tetrominos})=> {
 
     const makeGrid = () => {
-        const array =  [...Array(160).keys()]
-        return array.map(number => {
-            return <div id={number}></div>
+        
+        const matrix = Array(16).fill(Array(10).fill(0))
+        console.log(matrix)
+
+        return matrix.map(array => {
+            return array.map(cell=>{
+               return <div className="cell" value={cell}></div>
+           })
         })
      }
 
-     console.log(tetrominos)
     return (
         <div className="board-container">
             <div className="board">
