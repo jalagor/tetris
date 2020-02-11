@@ -1,15 +1,15 @@
 import React from 'react'
 
-export const Board = ()=> {
+export const Board = ({tetrominos})=> {
 
     const makeGrid = () => {
         const array =  [...Array(160).keys()]
-        console.log(array)
         return array.map(number => {
-            return (<div>{number}</div>)
+            return <div id={number}></div>
         })
      }
 
+     console.log(tetrominos)
     return (
         <div className="board-container">
             <div className="board">

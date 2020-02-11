@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Rammetto+One&display=swap');
 
 *{
-    background-color: rgba(247, 247, 247, 0.863);
+    box-sizing: border-box;
+    background-color: rgba(56, 53, 53, 0.596);
+   
+}
+.body{
+    margin: 0;
 }
 .navbar{
     display: flex;
@@ -12,6 +17,7 @@
 .title{
     font-family: 'Rammetto One', cursive;
     font-size: 3rem;
+    color: whitesmoke;
 }
 
 
@@ -19,7 +25,6 @@
     /* background-color: rgb(28, 169, 235); */
     display: flex;
     justify-content: center;
-    height: ;
    
 }
 
@@ -31,8 +36,8 @@
 } 
 .board > div {
     
-    border: 1px solid black;
+    border: 1px solid rgb(56, 56, 56);
     text-align: center;
     
-    background-color: purple;
+    background-color: black;
 }
