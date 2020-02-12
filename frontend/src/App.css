@@ -34,10 +34,37 @@
     grid-template-rows: 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem;
   
 } 
-.board > div {
+.cell {
     
     border: 1px solid rgb(56, 56, 56);
     text-align: center;
+}
+
+
+
+#Q{
     
     background-color: black;
+}
+
+#T{
+    background-color: #A100F1;
+}
+#J{
+    background-color: #0000F0;
+}
+#S{
+    background-color: #00F000;
+}
+#Z{
+    background-color: #F10000;
+}
+#O{
+    background-color: #F0F000;
+}
+#L{
+    background-color: #F0A100;
+}
+#I{
+    background-color: #00F0F0;
 }
