@@ -1,38 +1,79 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Rammetto+One&display=swap');
+
+*{
+    box-sizing: border-box;
+    background-color: rgba(56, 53, 53, 0.596);
+   
+}
+.body{
+    margin: 0;
+}
+.navbar{
+    display: flex;
+    justify-content: center;
+    height: 75px;
+    
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title{
+    font-family: 'Rammetto One', cursive;
+    /* font-size: 3rem; */
+    color: whitesmoke;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.board-container{
+    /* background-color: rgb(28, 169, 235); */
+    display: flex;
+    justify-content: center;
+   
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.board{
+    display: grid;
+    grid-template-columns: 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem;
+    grid-template-rows: 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem 2.7rem;
+  
+} 
+.cell {
+    
+    border: 1px solid rgb(56, 56, 56);
+    text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+
+
+#Q{
+    
+    background-color: black;
+   ;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#T{
+    background-color: #A100F1;
+    border: 2px solid rgb(113, 0, 169);
+}
+#J{
+    background-color: #0000F0;
+    border: 2px solid rgb(0, 0, 132);
+}
+#S{
+    background-color: #00F000;
+    border: 2px solid rgb(0, 165, 0);
+}
+#Z{
+    background-color: #F10000;
+    border: 2px solid rgb(145, 0, 0);
+}
+#O{
+    background-color: #F0F000;
+    border: 2px solid rgb(193, 193, 3);
+}
+#L{
+    background-color: #F0A100;
+    border: 2px solid rgb(162, 109, 0);
+}
+#I{
+    background-color: #00F0F0;
+    border: 2px solid rgb(0, 152, 152);
 }
