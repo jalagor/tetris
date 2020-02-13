@@ -24,7 +24,6 @@ export const Board = ({tetrominos, piece, board, playBoard, setPlayBoard})=> {
             })
         })
         
-        console.log("hmmm", piece)
         piece.tetromino.forEach((row, y) => {
 
             row.forEach((cell, x) => {

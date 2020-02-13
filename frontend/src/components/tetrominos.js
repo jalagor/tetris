@@ -63,6 +63,8 @@ export const randomTetromino = () => {
 export const startBoard = Array(16).fill(Array(10).fill(['Q',"clear"]))
 
 export const move = {
-    "ArrowRight" : 1,
-    "ArrowLeft" : -1
+    ArrowRight : () => {this.updatePiecePosition(1, 0)},
+    ArrowLeft : () => { this.updatePiecePosition(-1, 0)},
+    ArrodDown : () => { this.updatePiecePosition(0, -1)}
+
 }

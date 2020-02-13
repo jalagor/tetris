@@ -18,11 +18,19 @@ class App extends Component {
     playing: false
   }
  
-  movePiece = (direction) => {
-    console.log('direction', direction)
-    this.updatePiecePosition(direction, 0)
-
+  movePiece = (e) => {
+    const move = {
+        ArrowRight :()=> this.updatePiecePosition(1, 0),
+        ArrowLeft : () => this.updatePiecePosition(-1, 0),
+        ArrowDown : () => this.updatePiecePosition(0, 1)
+    }
+    console.log(move[e.key])
+    console.log(e.key)
+    return move[e.key]()
   } 
+  // dropPiece = () => {
+  //     this.updatePiecePosition(0, 1)
+  // }
 
   updatePiecePosition = (newX, newY) => {
     this.setState({
@@ -33,7 +41,6 @@ class App extends Component {
        
       }
     })
-    console.log("new POS", this.state)
   }
 
   setPlayBoard=(newBoard)=>{
@@ -43,18 +50,13 @@ class App extends Component {
 
   }
   
-  // move = (e) => {
-  //   console.log(e.key)
-  //   e.key === 'ArrowRight' ? this.movePiece(1) : 
-
-  // }
-
+ 
  
   
   render(){
-
+console.log(this.state.piece.position)
     return (
-      <div className="App" role="button" tabIndex="0" onKeyDown={e => this.movePiece(move[(e.key)])}>
+      <div className="App" role="button" tabIndex="0" onKeyDown={e => this.movePiece(e)}>
         <Navbar/>
         <Board 
           tetrominos={this.state.pieces} 
