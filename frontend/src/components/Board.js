@@ -1,39 +1,38 @@
 import React, {useEffect} from 'react'
 import {Piece} from './Piece'
 import {Cell} from './Cell'
+import {startBoard} from './tetrominos'
 
-export const Board = ({tetrominos, piece, board})=> {
+export const Board = ({tetrominos, piece, board, playBoard, setPlayBoard})=> {
 
-    const makeGrid = (matrix) => {
-        return matrix.map(array => {
+    const makeGrid = () => {
+        setTimeout(setPlayBoard(board), 10000)
+        
+        return startBoard.map(array => {
             return array.map(cell=>{
-               return <Cell id={cell[0]}/>
-           })
-        })
-       return piece.tetromino.map( row=>{
-            return row.map( box => {
-                return <Cell id={box[0]}/>
-
+                return <Cell id={cell[0]}/>
             })
         })
+
     }
 
-    const updateGrid = () => {
-        const newGrid = board.map(row=> { 
+    const updateGrid = (oldBoard) => {
+        const newGrid = oldBoard.map(row=> { 
            return row.map(cell => {
-               console.log(cell)
-                return <Cell id= {(cell[1] === 'clear' ? cell[0] : cell[0])}/>
+                return <Cell id= {(cell[1] === 'clear' ? 'Q' : cell[0])}/>
+                
             })
         })
-
+        
+        console.log("hmmm", piece)
         piece.tetromino.forEach((row, y) => {
-            row.forEach((value, x) => {
-              if (value !== 'Q') {
-                newGrid[y + piece.position.y][x + piece.position.x] = <Cell id={value}/>
+
+            row.forEach((cell, x) => {
+              if (cell !== 'Q') {
+                newGrid[y + piece.position.y][x + piece.position.x] = <Cell id={cell}/>
               }
             });
         })
-
         return newGrid
     }
         
@@ -49,7 +48,8 @@ export const Board = ({tetrominos, piece, board})=> {
     return (
         <div className="board-container">
             <div className="board">
-                {updateGrid()}
+
+                {playBoard[1] ? updateGrid(playBoard) :makeGrid(board)}
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-const tetrominos = {
+export const tetrominos = {
     Q: {
         shape: [['Q']], color: '0, 0, 0'    
     }, 
@@ -52,4 +52,17 @@ const tetrominos = {
         ], color: "#F10000"
     }
 }
-export default tetrominos
+
+export const randomTetromino = () => {
+    const pieces = 'IJLOSTZ';
+    const randTetromino =
+      pieces[Math.floor(Math.random() * pieces.length)];
+    return tetrominos[randTetromino];
+  };
+
+export const startBoard = Array(16).fill(Array(10).fill(['Q',"clear"]))
+
+export const move = {
+    "ArrowRight" : 1,
+    "ArrowLeft" : -1
+}

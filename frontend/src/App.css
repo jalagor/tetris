@@ -45,26 +45,34 @@
 #Q{
     
     background-color: black;
+   ;
 }
 
 #T{
     background-color: #A100F1;
+    border: 2px solid rgb(113, 0, 169);
 }
 #J{
     background-color: #0000F0;
+    border: 2px solid rgb(0, 0, 132);
 }
 #S{
     background-color: #00F000;
+    border: 2px solid rgb(0, 165, 0);
 }
 #Z{
     background-color: #F10000;
+    border: 2px solid rgb(145, 0, 0);
 }
 #O{
     background-color: #F0F000;
+    border: 2px solid rgb(193, 193, 3);
 }
 #L{
     background-color: #F0A100;
+    border: 2px solid rgb(162, 109, 0);
 }
 #I{
     background-color: #00F0F0;
+    border: 2px solid rgb(0, 152, 152);
 }
