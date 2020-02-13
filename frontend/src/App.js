@@ -20,13 +20,15 @@ class App extends Component {
  
   movePiece = (e) => {
     const move = {
-        ArrowRight :()=> this.updatePiecePosition(1, 0),
+        ArrowRight : ()=> this.updatePiecePosition(1, 0),
         ArrowLeft : () => this.updatePiecePosition(-1, 0),
-        ArrowDown : () => this.updatePiecePosition(0, 1)
+        ArrowDown : () => this.updatePiecePosition(0, 1),
+        default : () => null
     }
     console.log(move[e.key])
     console.log(e.key)
-    return move[e.key]()
+    // return move[e.key]() === undefined ? move.default() : move[e.key]()
+    return !move[e.key] ? move.default : move[e.key]() 
   } 
   // dropPiece = () => {
   //     this.updatePiecePosition(0, 1)
