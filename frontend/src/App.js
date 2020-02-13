@@ -11,7 +11,7 @@ class App extends Component {
     playBoard: [],
     piece:{
       position: {x: 4, y: 0},
-      tetromino: tetrominos.I.shape, 
+      tetromino: tetrominos.Z.shape, 
       collided: false
     },
     newPosition: [],
@@ -23,16 +23,24 @@ class App extends Component {
         ArrowRight : ()=> this.updatePiecePosition(1, 0),
         ArrowLeft : () => this.updatePiecePosition(-1, 0),
         ArrowDown : () => this.updatePiecePosition(0, 1),
+        ArrowUp : () => this.flipPiece(this.state.piece.tetromino),
         default : () => null
     }
-    console.log(move[e.key])
-    console.log(e.key)
-    // return move[e.key]() === undefined ? move.default() : move[e.key]()
     return !move[e.key] ? move.default : move[e.key]() 
   } 
-  // dropPiece = () => {
-  //     this.updatePiecePosition(0, 1)
-  // }
+
+  flipPiece = (matrix) => {
+    
+   const flipped = matrix[0].map((column, index) => {
+     return matrix.map(row => row[index])
+    })
+    this.setState({
+      piece: { 
+        position: {x: this.state.piece.position.x, y: this.state.piece.position.y },
+        tetromino: flipped.reverse()
+      }
+    })
+  }
 
   updatePiecePosition = (newX, newY) => {
     this.setState({
@@ -47,16 +55,12 @@ class App extends Component {
 
   setPlayBoard=(newBoard)=>{
     this.setState({playBoard: newBoard})
-    
-    // console.log("hit the board", this.state.playBoard)
-
   }
   
  
  
   
   render(){
-console.log(this.state.piece.position)
     return (
       <div className="App" role="button" tabIndex="0" onKeyDown={e => this.movePiece(e)}>
         <Navbar/>
