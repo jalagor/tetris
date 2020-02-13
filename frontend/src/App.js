@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import {Navbar} from './components/NavBar'
 import {Board} from './components/Board'
-import {tetrominos, randomTetromino, move, startBoard} from './components/tetrominos'
+import {tetrominos, randomTetromino, checkCollision, startBoard} from './components/tetrominos'
 
 class App extends Component {
   state = {
@@ -14,19 +14,22 @@ class App extends Component {
       tetromino: tetrominos.Z.shape, 
       collided: false
     },
-    newPosition: [],
     playing: false
   }
  
   movePiece = (e) => {
+    const {piece, playBoard} = this.state
     const move = {
-        ArrowRight : ()=> this.updatePiecePosition(1, 0),
+        ArrowRight : () => this.updatePiecePosition(1, 0),
         ArrowLeft : () => this.updatePiecePosition(-1, 0),
         ArrowDown : () => this.updatePiecePosition(0, 1),
-        ArrowUp : () => this.flipPiece(this.state.piece.tetromino),
+        ArrowUp : () => this.flipPiece(piece.tetromino),
         default : () => null
     }
-    return !move[e.key] ? move.default : move[e.key]() 
+    console.log("test", checkCollision(piece, playBoard, {x:1, y: 0}))
+
+    
+    return !move[e.key] ? move.default : move[e.key]()
   } 
 
   flipPiece = (matrix) => {
@@ -42,15 +45,15 @@ class App extends Component {
     })
   }
 
-  updatePiecePosition = (newX, newY) => {
+  updatePiecePosition = (newX, newY, newCollided) => {
     this.setState({
       ...startBoard,
       piece: {
         position: {x: (this.state.piece.position.x += newX), y: (this.state.piece.position.y += newY)},
         tetromino: this.state.piece.tetromino
-       
       }
     })
+    // setTimeout(() => this.updatePiecePosition(0, 1), 750)
   }
 
   setPlayBoard=(newBoard)=>{

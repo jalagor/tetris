@@ -11,12 +11,13 @@
 .navbar{
     display: flex;
     justify-content: center;
+    height: 75px;
     
 }
 
 .title{
     font-family: 'Rammetto One', cursive;
-    font-size: 3rem;
+    /* font-size: 3rem; */
     color: whitesmoke;
 }
 

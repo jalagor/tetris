@@ -62,9 +62,23 @@ export const randomTetromino = () => {
 
 export const startBoard = Array(16).fill(Array(10).fill(['Q',"clear"]))
 
-export const move = {
-    ArrowRight : () => {this.updatePiecePosition(1, 0)},
-    ArrowLeft : () => { this.updatePiecePosition(-1, 0)},
-    ArrodDown : () => { this.updatePiecePosition(0, -1)}
+// export const checkCollision = (piece, stage, {x: moveX, y: moveY}) => {
 
+
+// }
+
+export const checkCollision = (piece, stage, { x: moveX, y: moveY }) => {
+    return piece.tetromino.some((row, y) =>
+      row.some((cell, x) => {
+        if (cell !== 'Q') {
+          return (
+            !stage[y + piece.position.y + moveY] ||
+            !stage[y + piece.position.y + moveY][x + piece.position.x + moveX] ||
+            stage[y + piece.position.y + moveY][x + piece.position.x + moveX][1] !==
+              'clear'
+          );
+        }
+        return false;
+      })
+    );
 }
