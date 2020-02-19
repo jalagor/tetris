@@ -15,13 +15,15 @@ class App extends Component {
       tetromino: tetrominos.Z.shape, 
       collided: false
     },
-    playing: false
+    playing: false, 
+    coordinates: []
   }
 
 
  
   movePiece = (e) => {
     const {piece, playBoard} = this.state
+    // console.log("what are you here", playBoard)
     const move = {
 
         ArrowRight : () => !checkCollision(piece, playBoard, {x:1, y: 0}) 
@@ -58,21 +60,20 @@ class App extends Component {
   }
 
   dropPiece = () => {
-    const {piece, playBoard, board} = this.state
+    const {piece, playBoard} = this.state
    
     
     setTimeout( () => !checkCollision(piece, playBoard, {x:0, y: 1}) 
     ? this.updatePiecePosition(0, 1) : this.catchCollision(), 400)
     setTimeout(() => this.endofgrid(), 400) 
   }
+
   endofgrid =() => {
     const {piece, playBoard} = this.state
     !checkCollision(piece, playBoard, {x:0, y: 1})? this.dropPiece() : this.catchCollision()
-
   }
 
   catchCollision = () => {
-    // const { piece, playBoard} = this.state
     
     this.setState({
       piece: {
@@ -81,7 +82,7 @@ class App extends Component {
         collided: true
       }
     })
-    console.log(this.state.piece)
+    this.recordCoordinates()
     this.newPiece()   
   }
 
@@ -104,7 +105,6 @@ class App extends Component {
         collided: newCollided
       }
     })
-    
   }
 
   setPlayBoard=(newBoard)=>{
@@ -112,8 +112,7 @@ class App extends Component {
   }
 
   updatePlayBoard = (someBoard) =>{
-    console.log(this.state)
-    debugger
+    
     this.setState({
       playBoard: someBoard,
       piece:{
@@ -122,13 +121,61 @@ class App extends Component {
         collided: false
       }
     })
-    console.log(this.state)
+  }
+
+  recordCoordinates = () => { 
+    const {piece} = this.state
+    var coords = []
+    piece.tetromino.forEach((row, y) => {
+        row.forEach((cell, x) => {
+            if (cell !== 'Q') {
+                var currentRow = (y + piece.position.y)
+                var currentCell = (x + piece.position.x)
+                var xy = {first: currentRow, second: currentCell, third: [cell, 'merged']}
+                coords.push(xy)
+            }
+        });
+    })
+    this.setState({
+      coordinates: [...coords]
+    })
+    this.changeStaticboard()
+  }
+
+  changeStaticboard = () => {
+    const {coordinates} = this.state
+    const cRows = coordinates.map(coord=>{return coord.first})
+    const cCells = coordinates.map(coord=>{return coord.second})
+    const merger = coordinates[0].third
+    // var pleaseWork = [...playBoard]
+    // console.log("hit", coordinates)
+    // console.log(cRows)
     debugger
+    this.setState(state=>{
+      const playBoard = state.playBoard.map((row, x) =>{
+
+        console.log(cRows)
+        debugger
+        return !cRows.includes(x)
+        ? row 
+        : row.map((cell, y) => { 
+          console.log('y', y, 'cell', cell)
+          debugger
+            return !cCells.includes(y)
+            ? cell
+            : cell = merger
+        }) 
+      }) 
+      console.log('New playBoard', playBoard)
+      return {
+        playBoard,
+      };
+    })
   }
-  componentDidUpdate(){
-   
-  }
+
+
  
+
  
   
   render(){

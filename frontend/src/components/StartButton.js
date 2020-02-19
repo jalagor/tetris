@@ -6,6 +6,6 @@ export const StartButton = ({dropPiece})=> {
         dropPiece()
     }
     return (
-        <button id className="start" onClick={handleClick}>Start Game</button>
+        <button className="start" onClick={handleClick}>Start Game</button>
     )
 }
