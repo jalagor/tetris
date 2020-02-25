@@ -31,6 +31,6 @@ Rotate the piece by pressing the up arrow.
 This is a beta version of this game and there is work still being done. 
 Future features include row clearing, scoring, a high score board and difficulty levels. 
 
-A Video Demo can be found (here)[https://drive.google.com/file/d/1-aG9Q7aloc-Ec2IcIafUxpom3-RRmchx/view?usp=sharing]!
+A Video Demo can be found ![here](https://drive.google.com/file/d/1-aG9Q7aloc-Ec2IcIafUxpom3-RRmchx/view?usp=sharing)!
 
 
