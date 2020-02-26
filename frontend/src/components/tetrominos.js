@@ -62,10 +62,7 @@ export const randomTetromino = () => {
 
 export const startBoard = Array(16).fill(Array(10).fill(['Q',"clear"]))
 
-// export const checkCollision = (piece, stage, {x: moveX, y: moveY}) => {
 
-
-// }
 
 export const checkCollision = (piece, stage, { x: moveX, y: moveY }) => {
     return piece.tetromino.some((row, y) =>

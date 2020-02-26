@@ -23,7 +23,6 @@ class App extends Component {
  
   movePiece = (e) => {
     const {piece, playBoard} = this.state
-    // console.log("what are you here", playBoard)
     const move = {
 
         ArrowRight : () => !checkCollision(piece, playBoard, {x:1, y: 0}) 
@@ -147,9 +146,7 @@ class App extends Component {
     const cRows = coordinates.map(coord=>{return coord.first})
     const cCells = coordinates.map(coord=>{return coord.second})
     const merger = coordinates[0].third
-    // var pleaseWork = [...playBoard]
-    // console.log("hit", coordinates)
-    // console.log(cRows)
+
     debugger
     this.setState(state=>{
       const playBoard = state.playBoard.map((row, x) =>{
