@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import {Navbar} from './components/NavBar'
 import {Board} from './components/Board'
-import {tetrominos, randomTetromino, checkCollision, startBoard} from './components/tetrominos'
+import {StartButton} from './components/StartButton'
+import {tetrominos, randomTetromino, checkCollision} from './components/tetrominos'
 
 class App extends Component {
   state = {
@@ -14,22 +15,33 @@ class App extends Component {
       tetromino: tetrominos.Z.shape, 
       collided: false
     },
-    playing: false
+    playing: false, 
+    coordinates: []
   }
+
+
  
   movePiece = (e) => {
     const {piece, playBoard} = this.state
     const move = {
-        ArrowRight : () => this.updatePiecePosition(1, 0),
-        ArrowLeft : () => this.updatePiecePosition(-1, 0),
-        ArrowDown : () => this.updatePiecePosition(0, 1),
-        ArrowUp : () => this.flipPiece(piece.tetromino),
-        default : () => null
-    }
-    console.log("test", checkCollision(piece, playBoard, {x:1, y: 0}))
 
-    
-    return !move[e.key] ? move.default : move[e.key]()
+        ArrowRight : () => !checkCollision(piece, playBoard, {x:1, y: 0}) 
+          ? this.updatePiecePosition(1, 0) 
+          : null,
+        
+        ArrowLeft : () => !checkCollision(piece, playBoard, {x:-1, y: 1}) 
+          ? this.updatePiecePosition(-1, 0) 
+          : null,
+
+        // ArrowDown : () => !checkCollision(piece, playBoard, {x:0, y: 1}) 
+        //   ? this.updatePiecePosition(0, 1) 
+        //   : null,
+        
+        ArrowUp : () => !checkCollision(piece, playBoard, {x:-1, y: 1}) ? this.flipPiece(piece.tetromino) : null,
+        default : () => null
+      }
+      
+      return !move[e.key] ? move.default : move[e.key]()
   } 
 
   flipPiece = (matrix) => {
@@ -40,27 +52,128 @@ class App extends Component {
     this.setState({
       piece: { 
         position: {x: this.state.piece.position.x, y: this.state.piece.position.y },
-        tetromino: flipped.reverse()
+        tetromino: flipped.reverse(),
+        collided: false
       }
     })
   }
 
-  updatePiecePosition = (newX, newY, newCollided) => {
+  dropPiece = () => {
+    const {piece, playBoard} = this.state
+   
+    
+    setTimeout( () => !checkCollision(piece, playBoard, {x:0, y: 1}) 
+    ? this.updatePiecePosition(0, 1) : this.catchCollision(), 400)
+    setTimeout(() => this.endofgrid(), 400) 
+  }
+
+  endofgrid =() => {
+    const {piece, playBoard} = this.state
+    !checkCollision(piece, playBoard, {x:0, y: 1})? this.dropPiece() : this.catchCollision()
+  }
+
+  catchCollision = () => {
+    
     this.setState({
-      ...startBoard,
       piece: {
-        position: {x: (this.state.piece.position.x += newX), y: (this.state.piece.position.y += newY)},
-        tetromino: this.state.piece.tetromino
+        position: this.state.piece.position,
+        tetromino: this.state.piece.tetromino,
+        collided: true
       }
     })
-    // setTimeout(() => this.updatePiecePosition(0, 1), 750)
+    this.recordCoordinates()
+    this.newPiece()   
+  }
+
+  newPiece = ()=> {
+    this.setState({
+      piece:{
+        position: {x:4, y:0},
+        tetromino: randomTetromino().shape,
+        collided: false
+      }
+    })
+    this.dropPiece()
+  }
+  updatePiecePosition = (newX, newY, newCollided) => {
+
+    this.setState({
+      piece: {
+        position: {x: (this.state.piece.position.x += newX), y: (this.state.piece.position.y += newY)},
+        tetromino: this.state.piece.tetromino,
+        collided: newCollided
+      }
+    })
   }
 
   setPlayBoard=(newBoard)=>{
     this.setState({playBoard: newBoard})
   }
-  
+
+  updatePlayBoard = (someBoard) =>{
+    
+    this.setState({
+      playBoard: someBoard,
+      piece:{
+        position: {x:4, y:0},
+        tetromino: randomTetromino().shape,
+        collided: false
+      }
+    })
+  }
+
+  recordCoordinates = () => { 
+    const {piece} = this.state
+    var coords = []
+    piece.tetromino.forEach((row, y) => {
+        row.forEach((cell, x) => {
+            if (cell !== 'Q') {
+                var currentRow = (y + piece.position.y)
+                var currentCell = (x + piece.position.x)
+                var xy = {first: currentRow, second: currentCell, third: [cell, 'merged']}
+                coords.push(xy)
+            }
+        });
+    })
+    this.setState({
+      coordinates: [...coords]
+    })
+    this.changeStaticboard()
+  }
+
+  changeStaticboard = () => {
+    const {coordinates} = this.state
+    const cRows = coordinates.map(coord=>{return coord.first})
+    const cCells = coordinates.map(coord=>{return coord.second})
+    const merger = coordinates[0].third
+    console.log(coordinates)
+    debugger
+
+    this.setState(state=>{
+      const playBoard = state.playBoard.map((row, x) =>{
+        
+        return !cRows.includes(x)
+        ? row 
+        : row.map((cell, y) => { 
+          console.log('y', y, 'cell', cell)
+          
+          console.log('cCells', cCells, 'x', x)
+          debugger
+            return !cCells.includes(y)
+            ? cell
+            : cell = merger
+        }) 
+      }) 
+      console.log('New playBoard', playBoard)
+      return {
+        playBoard,
+      };
+    })
+  }
+
+
  
+
  
   
   render(){
@@ -68,6 +181,7 @@ class App extends Component {
       <div className="App" role="button" tabIndex="0" onKeyDown={e => this.movePiece(e)}>
         <Navbar/>
         <Board 
+          updatePlayBoard ={this.updatePlayBoard}
           tetrominos={this.state.pieces} 
           piece={this.state.piece} 
           board={this.state.startBoard}
@@ -75,6 +189,9 @@ class App extends Component {
           setPlayBoard={this.setPlayBoard}
 
         />
+        <aside>
+          <StartButton dropPiece ={this.dropPiece}/>
+        </aside>
 
       </div>
     );
