@@ -153,14 +153,12 @@ class App extends Component {
     debugger
     this.setState(state=>{
       const playBoard = state.playBoard.map((row, x) =>{
-
-        console.log(cRows)
-        debugger
+        
         return !cRows.includes(x)
         ? row 
         : row.map((cell, y) => { 
           console.log('y', y, 'cell', cell)
-          debugger
+          
             return !cCells.includes(y)
             ? cell
             : cell = merger
