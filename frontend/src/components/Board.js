@@ -21,7 +21,6 @@ export const Board = ({piece, board, playBoard, setPlayBoard})=> {
                 return <Cell key = {x}  id= {(cell[1] === 'clear' ? 'Q' : cell[0])}/> 
             })
         })
-        
 
         piece.tetromino.forEach((row, y) => {
             row.forEach((cell, x) => {
@@ -32,15 +31,6 @@ export const Board = ({piece, board, playBoard, setPlayBoard})=> {
         })
         return newGrid
     }
-        
-    
-    
-       
-        
-        
-
-    
-
 
     return (
         <div className="board-container">

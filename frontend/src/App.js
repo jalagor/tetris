@@ -3,7 +3,7 @@ import './App.css';
 import {Navbar} from './components/NavBar'
 import {Board} from './components/Board'
 import {StartButton} from './components/StartButton'
-import {tetrominos, randomTetromino, checkCollision, startBoard} from './components/tetrominos'
+import {tetrominos, randomTetromino, checkCollision} from './components/tetrominos'
 
 class App extends Component {
   state = {
@@ -146,8 +146,9 @@ class App extends Component {
     const cRows = coordinates.map(coord=>{return coord.first})
     const cCells = coordinates.map(coord=>{return coord.second})
     const merger = coordinates[0].third
-
+    console.log(coordinates)
     debugger
+
     this.setState(state=>{
       const playBoard = state.playBoard.map((row, x) =>{
         
@@ -156,6 +157,8 @@ class App extends Component {
         : row.map((cell, y) => { 
           console.log('y', y, 'cell', cell)
           
+          console.log('cCells', cCells, 'x', x)
+          debugger
             return !cCells.includes(y)
             ? cell
             : cell = merger
