@@ -20,7 +20,7 @@ class App extends Component {
   }
 
 
- 
+// must refactor 
   movePiece = (e) => {
     const {piece, playBoard} = this.state
     const move = {
